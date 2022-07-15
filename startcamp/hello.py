@@ -21,3 +21,4 @@ for _ in range(player):
 
 '''
 
+# 22.07.15 add commit push 연습용 수정
