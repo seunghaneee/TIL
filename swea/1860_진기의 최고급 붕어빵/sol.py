@@ -11,16 +11,19 @@ for tc in range(1, T+1):
 
     # 우선 정렬해서 생각하자
     arr.sort()
+
     # 전체 사람(N명)중 K명이 M 시간 이내에 도착한다면 가능
+
     result = 'possible'
     for i in range(N):
         # 붕어빵은 가장 늦은 시간에 오는 사람의 시간 // M + 1만큼 구워야 된다.
         # 따라서 전체 구워지는 붕어빵 개수는 arr[-1] // M * K 이다.
-        if arr[i] // M * K < i + 1:
+        if (arr[i] // M) * K < i + 1:
             result = 'Impossible'
             break
 
-    print(result)
+    print(f'#{tc} {result}')
+
 
 
 
