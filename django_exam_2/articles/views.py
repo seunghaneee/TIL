@@ -19,15 +19,21 @@ def new(request):
     }
     return render(request, 'articles/new.html', context)
 
+# def create(request):
+#     title = request.POST.get('title')
+#     content = request.POST.get('content')
+
+#     article = Article(title=title, content=content)
+#     article.save()
+
+#     # return render(request, 'articles/index.html')
+#     return redirect('articles:detail', article.pk)
 def create(request):
-    title = request.POST.get('title')
-    content = request.POST.get('content')
-
-    article = Article(title=title, content=content)
-    article.save()
-
-    # return render(request, 'articles/index.html')
-    return redirect('articles:detail', article.pk)
+    form = ArticleForm(request.POST)
+    if form.is_valid():
+        article = form.save()
+        return redirect('articles:detail', article.pk)
+    return redirect('articles:new')
 
 # read
 def detail(request, pk):
