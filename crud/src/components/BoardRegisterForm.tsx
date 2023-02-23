@@ -4,7 +4,11 @@ import React, { useState, useCallback } from "react";
 import { Link } from "react-router-dom";
 import classes from "../Board.module.css";
 
-const BoardRegisterForm = () => {
+// props 타입스크립트 인터페이스 정의
+interface Props {
+  readonly onRegister: (title: string, content: string, writer: string) => void;
+}
+const BoardRegisterForm = ({ onRegister }: Props) => {
   // 사용자가 원하는 값을 입력하는 화면 요소에 바인당할 상태를 설정
   const [title, setTitle] = useState("");
   const [content, setContent] = useState("");
@@ -33,10 +37,21 @@ const BoardRegisterForm = () => {
     },
     []
   );
+
+  // 폼 submit 이벤트 처리
+  const handleSubmit = useCallback(
+    (e: React.SyntheticEvent) => {
+      e.preventDefault();
+
+      // 등록 처리 함수 호출
+      onRegister(title, content, writer);
+    },
+    [title, content, writer, onRegister]
+  );
   return (
     <div className={classes.centered}>
       <h2>게시판 등록</h2>
-      <form>
+      <form onSubmit={handleSubmit}>
         <table>
           <tbody>
             <tr>
